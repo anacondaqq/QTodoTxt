@@ -60,6 +60,12 @@ class Settings(object):
     def setHideFutureTasks(self, hideFutureTasks):
         self._setData('hide_future_tasks', hideFutureTasks)
 
+    def getUserLowestPriority(self):
+        return self._getData('user_lowest_priority')
+
+    def setUserLowestPriority(self, userLowestPriority):
+        self._setData('user_lowest_priority', userLowestPriority)
+
     def setViewHeight(self, height):
         self._setData('view_size_height', height)
 

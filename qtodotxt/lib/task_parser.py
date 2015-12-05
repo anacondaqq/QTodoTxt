@@ -1,5 +1,7 @@
 import re
+import string
 from datetime import datetime, date
+from qtodotxt.lib import settings
 
 
 HIGHEST_PRIORITY = 'A'
@@ -10,7 +12,18 @@ class Task(object):
 
     def __init__(self, line):
         self.reset()
-        self._user_lowest_priority = 'D'
+
+        # read settings
+        # todo: make this setting changeable from gui, but do it while avoiding
+        # calling settings.load() (file access!!!) on every +/- keystroke --> use qsettings?
+        self._settings = settings.Settings()
+        self._settings.load()
+        userLowestPriority = self._settings.getUserLowestPriority()
+        if str(userLowestPriority).isupper():
+            self._user_lowest_priority = userLowestPriority
+        else:
+            self._user_lowest_priority = LOWEST_PRIORITY
+
         if line:
             self.parseLine(line)
 
